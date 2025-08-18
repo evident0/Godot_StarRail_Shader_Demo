@@ -28,7 +28,7 @@ anti_aliasing/quality/screen_space_aa=1
 
 gradientMetallic={
 "type": "sampler2D",
-"value": "res://gradients_NOTUSED/gradientMetallic.tres"
+"value": "res://gradients/gradientMetallic.tres"
 }
 shadow_color={
 "type": "color",
