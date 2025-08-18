@@ -95,8 +95,7 @@ mesh = SubResource("QuadMesh_mssda")
 skeleton = NodePath("../..")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.359398, -0.0544974, 0.267281)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6579, -0.0544974, 0.267281)
 light_color = Color(0.804688, 1, 0, 1)
 shadow_enabled = true
 

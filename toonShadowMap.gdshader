@@ -21,6 +21,12 @@ void fragment(){
 }
 
 void light(){
+	
+	bool is_directional = false;
+	if(LIGHT_IS_DIRECTIONAL){
+		is_directional = true;
+	}
+	
 	vec2 flipped_uv = vec2(1.0 - UV.x, UV.y);
 
 	vec2 head_forwardRB = normalize(head_forward.rb);
@@ -53,8 +59,9 @@ void light(){
 
 	vec3 shadowTexture = shadow_color.rgb;
 	vec3 shadowLerp = mix(vec3(1.0), shadowTexture,1.0-smoothStepFunc);
-
-	DIFFUSE_LIGHT = mix(shadowTexture, shadowLerp, resultForward) * LIGHT_COLOR/PI * ATTENUATION;
-	//DIFFUSE_LIGHT = mix(shadowTexture, shadowLerp, resultForward);
-
+	
+	vec3 final_color =  mix(shadowTexture, shadowLerp, resultForward) * LIGHT_COLOR/PI * ATTENUATION;
+	if(is_directional){
+		DIFFUSE_LIGHT = final_color;
+	}
 }

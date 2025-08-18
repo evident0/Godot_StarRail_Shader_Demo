@@ -205,9 +205,10 @@ void light() {
 
 	vec3 diffuse_part = toon_diffuse * (1.0 - metallic);
 	vec3 specular_part = LIGHT_COLOR * spec * metallic;
-
+	
 	vec3 final_color = (diffuse_part + specular_part);
 
-	DIFFUSE_LIGHT = is_directional ? final_color : vec3(0.0);
-
+	if(is_directional){
+		DIFFUSE_LIGHT = final_color;
+	}
 }

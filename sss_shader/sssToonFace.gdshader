@@ -127,6 +127,13 @@ void fragment(){
 
 
 void light() {
+
+	bool is_directional = false;
+	if(LIGHT_IS_DIRECTIONAL){
+		is_directional = true;
+	}
+
+
 	vec2 uv_center = SCREEN_UV;
 	vec2 uv_right = SCREEN_UV + vec2(1, 0) / VIEWPORT_SIZE;
 	vec2 uv_top = SCREEN_UV + vec2(0, 1) / VIEWPORT_SIZE;
@@ -155,8 +162,9 @@ void light() {
 	float lSmooth  = smoothstep(0, 0.05, NdotL);
 
 	float lLerp = mix((1.0), (0.0), lSmooth);
-
-	DIFFUSE_LIGHT = mix(shadow_color.rgb , vec3(1.0) ,  sss) * LIGHT_COLOR/PI * ATTENUATION;
-	ALPHA = 1.-sss;
-
+	vec3 final_color = mix(shadow_color.rgb , vec3(1.0) ,  sss) * LIGHT_COLOR/PI * ATTENUATION;
+	if(is_directional){
+		DIFFUSE_LIGHT = final_color;
+		ALPHA = 1.-sss;
+	}
 }
