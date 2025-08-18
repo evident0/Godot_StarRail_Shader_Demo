@@ -4,9 +4,6 @@ render_mode unshaded;
 // pixel sampling radius
 uniform float scale = 1.0;
 
-// outline dilation after computation
-uniform float outline_spread = 1.0;
-
 uniform vec4 _Color : source_color = vec4(0.0, 1.0, 0.0, 1.0);
 
 uniform float _DepthNormalThreshold = 0.1;
@@ -52,11 +49,6 @@ void fragment() {
     vec2 bottom_right_uv = SCREEN_UV + vec2(texel_size.x * half_scale_ceil, -texel_size.y * half_scale_floor);
     vec2 top_left_uv     = SCREEN_UV + vec2(-texel_size.x * half_scale_floor, texel_size.y * half_scale_ceil);
 
-	vec2 bottom_left_uv2  = SCREEN_UV - vec2(texel_size.x, texel_size.y) * half_scale_floor2;
-    vec2 top_right_uv2    = SCREEN_UV + vec2(texel_size.x, texel_size.y) * half_scale_ceil2;
-    vec2 bottom_right_uv2 = SCREEN_UV + vec2(texel_size.x * half_scale_ceil2, -texel_size.y * half_scale_floor2);
-    vec2 top_left_uv2     = SCREEN_UV + vec2(-texel_size.x * half_scale_floor2, texel_size.y * half_scale_ceil2);
-
     // Normals
     vec3 normal0 = texture(normal_roughness_texture, bottom_left_uv).rgb;
     vec3 normal1 = texture(normal_roughness_texture, top_right_uv).rgb;
@@ -68,11 +60,6 @@ void fragment() {
     float depth1 = texture(DEPTH_TEXTURE, top_right_uv).r;
     float depth2 = texture(DEPTH_TEXTURE, bottom_right_uv).r;
     float depth3 = texture(DEPTH_TEXTURE, top_left_uv).r;
-
-	vec3 luminance0 = texture(SCREEN_TEXTURE, bottom_left_uv2).rgb;
-	vec3 luminance1 = texture(SCREEN_TEXTURE, top_right_uv2).rgb;
-	vec3 luminance2 = texture(SCREEN_TEXTURE, bottom_right_uv2).rgb;
-	vec3 luminance3 = texture(SCREEN_TEXTURE, top_left_uv2).rgb;
 
 	vec3 viewNormal = normal0 * 2. - 1.;
 	float NdotV = 1. - dot(viewNormal, VIEW);
@@ -97,20 +84,7 @@ void fragment() {
 	float edgeNormal = sqrt(dot(normalFiniteDifference0, normalFiniteDifference0) + dot(normalFiniteDifference1, normalFiniteDifference1));
 	edgeNormal = edgeNormal > _NormalThreshold ? 1. : 0.;
 
-
-	vec3 luminanceFiniteDifference0 = luminance1 - luminance0;
-	vec3 luminanceFiniteDifference1 = luminance3 - luminance2;
-
-	float edgeLuminance = sqrt(dot(luminanceFiniteDifference0, luminanceFiniteDifference0)
-	+ dot(luminanceFiniteDifference1, luminanceFiniteDifference1));
-
-	edgeLuminance = edgeLuminance > _LuminanceThreshold ? 1. : 0.;
-
-
-
-
 	float edge = max(edgeDepth, max(edgeNormal,0.0));
-	//edge = edgeLuminance;
 
 	float dilated_edge = edge;
 
@@ -125,27 +99,14 @@ void fragment() {
 	float view_depth = linearize_depth(texture(DEPTH_TEXTURE, SCREEN_UV).r);
 	vec3 view_depththree = get_view_position_from_uv(SCREEN_UV, texture(DEPTH_TEXTURE, SCREEN_UV).r,INV_PROJECTION_MATRIX);
 	view_depth = -view_depththree.z;
-	//view_depth = texture(DEPTH_TEXTURE, SCREEN_UV).r;
-	vec3 luminanceColor =  (luminance0+luminance1+luminance2+luminance3)/4.;
 
 	vec4 edgeColor = vec4(_Color.rgb, _Color.a * dilated_edge);
-
 
 	float nearDistance = 0.0;
 	float farDistance  = 20.0;
 
 	float distanceFade = 1.0 - smoothstep(nearDistance,farDistance, view_depth);
 
-	///////edgeColor.a *= distanceFade;
-
-
 	ALBEDO = mix(texture(SCREEN_TEXTURE,SCREEN_UV).rgb, edgeColor.rgb, edgeColor.a);
 	ALPHA = edgeColor.a;
-
-
-
-	//////ALBEDO = mix(vec3(0.0), edgeColor.rgb, edgeColor.a);
-	//ALBEDO = (luminance0+luminance1+luminance2+luminance3)/4.;
-	//ALBEDO = luminance0;
-
 }

@@ -38,7 +38,6 @@ glow_strength = 1.15
 render_priority = 50
 shader = ExtResource("3_ayuu8")
 shader_parameter/scale = 1.0
-shader_parameter/outline_spread = 0.0
 shader_parameter/_Color = Color(0.258824, 0.172549, 0.172549, 1)
 shader_parameter/_DepthNormalThreshold = 1.04
 shader_parameter/_DepthNormalThresholdScale = -0.085
@@ -53,14 +52,8 @@ size = Vector2(2, 2)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4qc3i"]
 render_priority = 10
 shader = ExtResource("7_mssda")
-shader_parameter/scale = 2.0
-shader_parameter/outline_spread = 1.0
-shader_parameter/_Color = Color(1, 1, 1, 0.0941176)
-shader_parameter/_DepthNormalThreshold = 0.1
-shader_parameter/_DepthNormalThresholdScale = 7.495
-shader_parameter/_DepthThreshold = 0.115
-shader_parameter/_NormalThreshold = 0.515
-shader_parameter/thickness = 0.005
+shader_parameter/_Color = Color(1, 1, 1, 1)
+shader_parameter/thickness = 0.004
 
 [sub_resource type="QuadMesh" id="QuadMesh_mssda"]
 flip_faces = true
