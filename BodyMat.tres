@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://svnd5wqeycd5"]
+
+[ext_resource type="Shader" uid="uid://djeepweu3vexs" path="res://sss_shader/sssToon.gdshader" id="1_frp0u"]
+[ext_resource type="Texture2D" uid="uid://sewgkqdydysv" path="res://girl/STELLE_Image_0.png" id="2_6l5aa"]
+[ext_resource type="Texture2D" uid="uid://bkiqe6pvyhvuu" path="res://girl/Avatar_PlayerGirl_00_Body_LightMappp.png" id="3_ds3e0"]
+[ext_resource type="Shader" uid="uid://dgywvddn6e306" path="res://toon.gdshader" id="4_e36sr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_joigy"]
+render_priority = 0
+shader = ExtResource("1_frp0u")
+shader_parameter/albedo_texture = ExtResource("2_6l5aa")
+shader_parameter/lightmap_texture = ExtResource("3_ds3e0")
+shader_parameter/g_sss_max_steps = 32
+shader_parameter/g_sss_ray_max_distance = 0.02
+shader_parameter/g_sss_thickness = 0.45
+shader_parameter/g_sss_max_delta_from_original_depth = 0.005
+shader_parameter/g_sss_min_thickness = 0.004
+
+[resource]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_joigy")
+shader = ExtResource("4_e36sr")

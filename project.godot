@@ -1,0 +1,44 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Face_Toon_Shader_demo"
+run/main_scene="uid://cnk7b4wef5sdp"
+config/features=PackedStringArray("4.4", "Forward Plus")
+config/icon="res://icon.svg"
+
+[rendering]
+
+lights_and_shadows/directional_shadow/size=8128
+lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
+lights_and_shadows/directional_shadow/16_bits=false
+lights_and_shadows/positional_shadow/soft_shadow_filter_quality=0
+lights_and_shadows/positional_shadow/atlas_16_bits=false
+anti_aliasing/quality/screen_space_aa=1
+
+[shader_globals]
+
+gradientMetallic={
+"type": "sampler2D",
+"value": "res://gradientMetallic.tres"
+}
+gradientHair={
+"type": "sampler2D",
+"value": "res://new_gradient_texture_1d.tres"
+}
+gradientBody={
+"type": "sampler2D",
+"value": "res://new_gradient_texture_1dBody.tres"
+}
+shadow_color={
+"type": "color",
+"value": Color(0.75, 0.55957, 0.55957, 1)
+}
