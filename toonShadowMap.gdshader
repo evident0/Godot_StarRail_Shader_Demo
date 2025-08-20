@@ -53,7 +53,7 @@ void light(){
 	float epsilon = 0.005;
 	float smoothStepFunc = smoothstep(ANGLETOUSE - epsilon,
 	ANGLETOUSE + epsilon,
-	texture(shadow_map_texture, UVTOUSE).r);
+	texture(shadow_map_texture, UVTOUSE).r * 1.5);
 
 	float resultForward = step(0.0,FdotL);
 

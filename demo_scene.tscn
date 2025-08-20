@@ -66,7 +66,7 @@ environment = SubResource("Environment_8n7uv")
 camera_attributes = SubResource("CameraAttributesPractical_ayuu8")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.49325, -0.642912, 0.585976, 0.813685, -0.102792, 0.572146, -0.307606, 0.759011, 0.57383, 0.0751282, 0.682691, 1.27677)
+transform = Transform3D(-0.579392, -0.0636, 0.812564, 0.813685, -0.102792, 0.572146, 0.0471368, 0.992667, 0.111307, 0.0751282, 0.682691, 1.27677)
 directional_shadow_max_distance = 3.5
 
 [node name="Camera3D" type="Camera3D" parent="."]

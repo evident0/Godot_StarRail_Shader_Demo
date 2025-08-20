@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode depth_draw_always;//, diffuse_toon, specular_toon;
+render_mode cull_disabled,depth_draw_always;//, diffuse_toon, specular_toon;
 
 global uniform sampler2D gradientMetallic;
 
@@ -98,10 +98,10 @@ float screen_space_shadows(vec3 surface_view_position, mat4 proj_m, mat4 inv_pro
 		current_position_view_space += ray_step;
 
 		current_screen_position = get_uv_from_view_position(current_position_view_space, proj_m);
-		/*
+	
 		if(!is_within_screen_boundaries(current_screen_position)){
 			return 1.0f;
-		}*/
+		}
 
 		float depth_texture_probe_raw = texture(depth_texture, current_screen_position).x;
 
@@ -115,7 +115,7 @@ float screen_space_shadows(vec3 surface_view_position, mat4 proj_m, mat4 inv_pro
 		if (can_the_camera_see_the_ray &&  occluded_by_the_original_pixel)
         {
 			occlusion = 1.0;
-			//occlusion *= screen_fade(current_screen_position);
+			occlusion *= screen_fade(current_screen_position);
             break;
         }
 
