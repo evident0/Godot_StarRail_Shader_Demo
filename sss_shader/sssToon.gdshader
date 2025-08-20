@@ -192,7 +192,7 @@ void light() {
 	float metallic_lookup = texture(gradientMetallic, metallicUV).r;
 	float metallic = mix(0.0, metallic_lookup, metallic_mask);
 
-	float aoao =mix(0.3,1.0, (ao + (aoSkinMask > 0.01?0.0:1.0)));
+	float aoao =mix(0.0,1.0, (ao + (aoSkinMask > 0.01?0.0:1.0)));
 
 	vec3 toon_diffuse = mix(shadow_color.rgb * texture(albedo_texture,UV).rgb, vec3(1.0), sss * lLerp*aoao)
 	                  * LIGHT_COLOR / PI * ATTENUATION;
@@ -201,7 +201,7 @@ void light() {
 	vec3 L = normalize(light_dir);
 
 	vec3 H = normalize(V + L);
-	float spec = pow(max(dot(worldNormal, H), 0.0), 1.0 / max(1.0 - roughness, 0.001));
+	float spec = pow(max(dot(worldNormal, H), 0.0), 1.0 / max(1.0-roughness, 0.001));
 
 	vec3 diffuse_part = toon_diffuse * (1.0 - metallic);
 	vec3 specular_part = LIGHT_COLOR * spec * metallic;

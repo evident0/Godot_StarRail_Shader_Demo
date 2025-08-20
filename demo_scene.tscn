@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://cnk7b4wef5sdp"]
+[gd_scene load_steps=17 format=3 uid="uid://cnk7b4wef5sdp"]
 
 [ext_resource type="Shader" uid="uid://dvy06hokkmj67" path="res://sky_stars.gdshader" id="1_yg6rb"]
 [ext_resource type="Texture2D" uid="uid://byprhgfirsoyj" path="res://girl/Effect_StarBg_00.png" id="2_6qj3o"]
 [ext_resource type="Shader" uid="uid://g52xrbdeywm" path="res://outline.gdshader" id="3_ayuu8"]
+[ext_resource type="Script" uid="uid://tx25i0cyjxb" path="res://post_process_shader.gd" id="3_om45m"]
 [ext_resource type="Shader" uid="uid://dia7hixas6bo1" path="res://sobelHighlight.gdshader" id="7_mssda"]
 [ext_resource type="PackedScene" uid="uid://cfy1cwvd8u1y" path="res://stelleModel.tscn" id="8_mssda"]
 
@@ -24,7 +25,7 @@ background_color = Color(0.347656, 0.347656, 0.347656, 1)
 background_energy_multiplier = 4.4
 sky = SubResource("Sky_h7mfa")
 ambient_light_source = 2
-ambient_light_color = Color(0.410156, 0.410156, 0.410156, 1)
+ambient_light_color = Color(0.332031, 0.332031, 0.332031, 1)
 ssao_radius = 2.27
 ssil_radius = 0.1
 ssil_intensity = 0.57
@@ -33,6 +34,24 @@ glow_enabled = true
 glow_strength = 1.15
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ayuu8"]
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_4qc3i"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = true
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = false
+script = ExtResource("3_om45m")
+shader_code = "
+color.r = rGT;
+color.g = gGT;
+color.b = bGT;
+"
+metadata/_custom_type_script = "uid://tx25i0cyjxb"
+
+[sub_resource type="Compositor" id="Compositor_mssda"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_4qc3i")])
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mssda"]
 render_priority = 50
@@ -64,9 +83,11 @@ size = Vector2(2, 2)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_8n7uv")
 camera_attributes = SubResource("CameraAttributesPractical_ayuu8")
+compositor = SubResource("Compositor_mssda")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.579392, -0.0636, 0.812564, 0.813685, -0.102792, 0.572146, 0.0471368, 0.992667, 0.111307, 0.0751282, 0.682691, 1.27677)
+transform = Transform3D(0.48481, -0.466064, 0.740097, 0, 0.846193, 0.532876, -0.87462, -0.258344, 0.410242, 0.0751282, 0.682691, 1.27677)
+light_color = Color(0.964844, 0.970337, 1, 1)
 directional_shadow_max_distance = 3.5
 
 [node name="Camera3D" type="Camera3D" parent="."]
