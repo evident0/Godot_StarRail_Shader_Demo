@@ -41,12 +41,9 @@ void fragment() {
     for (int i = 0; i < 9; i++) {
         float depthN = texture(DEPTH_TEXTURE, uv + sobel_sample_points[i] * thickness).r;
 		sobel += depthN * vec2(sobel_x[i], sobel_y[i]);
-		
+
 		 depthDiff = max(depthDiff, abs(depthN - depth));
     }
-
-	float eps = 1e-6;
-	float objectMask = (depth > eps && depth < 1.0 - eps) ? 1.0 : 0.0;
 
     float edge = length(sobel);
 
@@ -54,6 +51,7 @@ void fragment() {
 	edge = edge > 0.0 ? clamp(0.5,0.5,edge) : 0.0;
 
 	ALBEDO = mix(vec3(0.0), _Color.rgb, edge);
-	ALPHA = edge*_Color.a*objectMask;
-	
+	ALPHA = texture(SCREEN_TEXTURE,SCREEN_UV).a>0.0 ? edge*_Color.a:0.0;
+
+
 }
