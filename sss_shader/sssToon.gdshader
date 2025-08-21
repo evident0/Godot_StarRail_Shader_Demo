@@ -136,7 +136,6 @@ void vertex(){
 void fragment(){
 	
 	ALBEDO = texture(albedo_texture,UV).rgb;
-	LIGHT_VERTEX = texture(albedo_texture,UV).rgb;
 }
 
 
@@ -196,7 +195,7 @@ void light() {
 	float aoao =mix(0.0,1.0, (ao + (aoSkinMask > 0.01?0.0:1.0)));
 
 	vec3 toon_diffuse = mix(shadow_color.rgb * texture(albedo_texture,UV).rgb, vec3(1.0), sss * lLerp*aoao)
-	                  * LIGHT_COLOR / PI * ATTENUATION;
+	                  * LIGHT_COLOR / PI ;
 
 	vec3 V =  normalize(normalize(camera_pos_world-worldSpacePosition.rgb));
 	vec3 L = normalize(light_dir);

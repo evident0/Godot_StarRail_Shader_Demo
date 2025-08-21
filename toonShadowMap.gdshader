@@ -17,7 +17,6 @@ void vertex(){
 }
 void fragment(){
 	ALBEDO = texture(albedo_texture, UV).rgb;
-	LIGHT_VERTEX = vec3(texture(albedo_texture,UV).a);
 }
 
 void light(){
@@ -60,7 +59,7 @@ void light(){
 	vec3 shadowTexture = shadow_color.rgb;
 	vec3 shadowLerp = mix(vec3(1.0), shadowTexture,1.0-smoothStepFunc);
 
-	vec3 final_color =  mix(shadowTexture, shadowLerp, resultForward) * LIGHT_COLOR/PI * ATTENUATION;
+	vec3 final_color =  mix(shadowTexture, shadowLerp, resultForward) * LIGHT_COLOR/PI;
 	if(is_directional){
 		DIFFUSE_LIGHT = final_color;
 	}
