@@ -122,6 +122,7 @@ void vertex() {
 
 void fragment(){
 	ALBEDO = texture(albedo_texture, UV).rgb;
+	LIGHT_VERTEX = texture(albedo_texture,UV).rgb;
 }
 
 

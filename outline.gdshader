@@ -10,7 +10,7 @@ uniform float _DepthNormalThreshold = 0.1;
 uniform float _DepthNormalThresholdScale = 3.;
 uniform float _DepthThreshold = 1.5;
 uniform float _NormalThreshold = 2.0;
-uniform float _LuminanceThreshold = 2.0;
+
 
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap, repeat_disable;
 uniform sampler2D DEPTH_TEXTURE : hint_depth_texture, filter_linear_mipmap, repeat_disable;

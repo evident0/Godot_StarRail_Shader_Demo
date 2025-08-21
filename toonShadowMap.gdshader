@@ -17,7 +17,7 @@ void vertex(){
 }
 void fragment(){
 	ALBEDO = texture(albedo_texture, UV).rgb;
-	//LIGHT_VERTEX += vec3(0.00,0.00,0.01);
+	LIGHT_VERTEX = vec3(texture(albedo_texture,UV).a);
 }
 
 void light(){

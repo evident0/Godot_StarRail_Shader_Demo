@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cnk7b4wef5sdp"]
+[gd_scene load_steps=18 format=3 uid="uid://cnk7b4wef5sdp"]
 
 [ext_resource type="Shader" uid="uid://dvy06hokkmj67" path="res://sky_stars.gdshader" id="1_yg6rb"]
 [ext_resource type="Texture2D" uid="uid://byprhgfirsoyj" path="res://girl/Effect_StarBg_00.png" id="2_6qj3o"]
@@ -57,12 +57,11 @@ compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_4qc3
 render_priority = 50
 shader = ExtResource("3_ayuu8")
 shader_parameter/scale = 1.0
-shader_parameter/_Color = Color(0.258824, 0.172549, 0.172549, 1)
-shader_parameter/_DepthNormalThreshold = 1.04
-shader_parameter/_DepthNormalThresholdScale = -0.085
-shader_parameter/_DepthThreshold = 3.345
+shader_parameter/_Color = Color(0, 0, 0, 1)
+shader_parameter/_DepthNormalThreshold = 0.1
+shader_parameter/_DepthNormalThresholdScale = 0.33
+shader_parameter/_DepthThreshold = 5.0
 shader_parameter/_NormalThreshold = 2.0
-shader_parameter/_LuminanceThreshold = 2.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_sxiuf"]
 flip_faces = true
@@ -78,6 +77,9 @@ shader_parameter/thickness = 0.004
 flip_faces = true
 size = Vector2(2, 2)
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_om45m"]
+size = Vector2(5, 5)
+
 [node name="Demo_scene" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -86,9 +88,10 @@ camera_attributes = SubResource("CameraAttributesPractical_ayuu8")
 compositor = SubResource("Compositor_mssda")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.48481, -0.466064, 0.740097, 0, 0.846193, 0.532876, -0.87462, -0.258344, 0.410242, 0.0751282, 0.682691, 1.27677)
+transform = Transform3D(0.48481, -0.466064, 0.740097, 0, 0.846193, 0.532876, -0.87462, -0.258344, 0.410243, 0.0619051, 0.682691, 1.27677)
 light_color = Color(0.964844, 0.970337, 1, 1)
-directional_shadow_max_distance = 3.5
+shadow_enabled = true
+directional_shadow_max_distance = 16.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.20727, 0.698604)
@@ -109,9 +112,13 @@ mesh = SubResource("QuadMesh_mssda")
 skeleton = NodePath("../..")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6579, -0.0544974, 0.267281)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.62174, 0.187082, 0.267281)
 light_color = Color(0.804688, 1, 0, 1)
 shadow_enabled = true
 
 [node name="STELLE" parent="." instance=ExtResource("8_mssda")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+
+[node name="plainMesh" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("PlaneMesh_om45m")

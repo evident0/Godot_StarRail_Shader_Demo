@@ -98,7 +98,7 @@ float screen_space_shadows(vec3 surface_view_position, mat4 proj_m, mat4 inv_pro
 		current_position_view_space += ray_step;
 
 		current_screen_position = get_uv_from_view_position(current_position_view_space, proj_m);
-	
+
 		if(!is_within_screen_boundaries(current_screen_position)){
 			return 1.0f;
 		}
@@ -134,8 +134,9 @@ void vertex(){
 }
 
 void fragment(){
-
+	
 	ALBEDO = texture(albedo_texture,UV).rgb;
+	LIGHT_VERTEX = texture(albedo_texture,UV).rgb;
 }
 
 
